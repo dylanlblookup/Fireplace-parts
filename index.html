@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fireplace Parts Lookup</title>
+<style>
+body { font-family: Arial; padding: 20px; background:#f4f4f4; }
+input, button { width:100%; padding:14px; font-size:18px; margin-top:10px; }
+.card { background:#fff; padding:15px; margin-top:15px; border-radius:10px; }
+.part { border-bottom:1px solid #ddd; padding:8px 0; }
+.part:last-child { border-bottom:none; }
+</style>
+</head>
+<body>
+
+<h1>🔥 Fireplace Parts Lookup</h1>
+
+<input id="model" placeholder="Enter model (ex: SL7)">
+<button onclick="search()">Search</button>
+
+<div id="results"></div>
+
+<script>
+const db = {
+  "SL7": {
+    brand: "Heat & Glo",
+    model: "SL-7 SlimLine",
+    parts: [
+      { number: "2392-007", name: "Burner Assembly" },
+      { number: "GLA-750TR", name: "Glass Door Assembly" },
+      { number: "LOGS-SL7", name: "Complete Log Set" },
+      { number: "SRV2392-707", name: "Rear Left Log" },
+      { number: "SRV2392-708", name: "Rear Right Log" },
+      { number: "SRV2392-709", name: "Burner Log" },
+      { number: "SRV2392-710", name: "Top Right Log" },
+      { number: "SRV2392-711", name: "Top Left Log" }
+    ]
+  }
+};
+
+function search() {
+  const m = document.getElementById("model").value.toUpperCase();
+  const r = document.getElementById("results");
+  r.innerHTML = "";
+  if (!db[m]) { r.innerHTML = "<div class='card'>No parts found.</div>"; return; }
+  let h = `<div class='card'><h2>${db[m].brand} ${db[m].model}</h2>`;
+  db[m].parts.forEach(p => h += `<div class='part'><b>${p.number}</b><br>${p.name}</div>`);
+  r.innerHTML = h + "</div>";
+}
+</script>
+
+</body>
+</html>
